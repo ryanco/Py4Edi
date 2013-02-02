@@ -11,6 +11,7 @@ import TestParserErrors
 import TestInterchangeValidator
 import TestParsingMultipleGroups
 import TestObfuscator
+import TestFixtureReader
 
 loader = unittest.TestLoader()
 
@@ -26,6 +27,7 @@ suite.addTests(loader.loadTestsFromModule(TestSESegmentParsing))
 suite.addTests(loader.loadTestsFromModule(TestObfuscator))
 suite.addTests(loader.loadTestsFromModule(TestInterchangeValidator))
 suite.addTests(loader.loadTestsFromModule(TestParsingMultipleGroups))
+suite.addTests(loader.loadTestsFromModule(TestFixtureReader))
 
 runner = unittest.TextTestRunner(verbosity=3)
 result = runner.run(suite)

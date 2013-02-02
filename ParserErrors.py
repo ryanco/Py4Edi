@@ -1,8 +1,8 @@
-class Error(Exception):
+class ParserError(Exception):
     """Base class for exceptions in this module."""
     pass
 
-class InvalidFileTypeError(Error):
+class InvalidFileTypeError(ParserError):
     """Exception raised for errors in the input.
 
     Attributes:
@@ -17,7 +17,7 @@ class InvalidFileTypeError(Error):
     def __str__(self):
         return self.msg
 
-class SegmentTerminatorNotFoundError(Error):
+class SegmentTerminatorNotFoundError(ParserError):
     """Exception raised for errors in the Interchange Header.
 
     Attributes:

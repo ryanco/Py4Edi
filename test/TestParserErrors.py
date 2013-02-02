@@ -1,6 +1,6 @@
 import unittest
 from Segment import Segment
-from EdiParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
+from ParserErrors import InvalidFileTypeError
 
 class TestParserErrors(unittest.TestCase):
 

@@ -2,7 +2,7 @@ import unittest
 from EdiParser import Parser
 from EdiValidator import Validator
 from EdiValidationErrors import FieldValidationError
-from EdiParserErrors import SegmentTerminatorNotFoundError
+from ParserErrors import SegmentTerminatorNotFoundError
 
 class TestISASegmentValidator(unittest.TestCase):
 

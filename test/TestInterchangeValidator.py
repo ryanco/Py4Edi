@@ -2,7 +2,6 @@ import unittest
 from EdiParser import Parser
 from EdiValidator import Validator
 from EdiValidationErrors import IDMismatchError
-from EdiParserErrors import SegmentTerminatorNotFoundError
 
 class TestISASegmentValidator(unittest.TestCase):
 

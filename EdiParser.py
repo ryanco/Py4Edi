@@ -1,7 +1,7 @@
 from EdiDocument import EdiDocument
 from Group import Group, GroupHeader, GroupTrailer
 from TransactionSet import TransactionSet, TransactionSetHeader, TransactionSetTrailer
-from EdiParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
+from ParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
 
 
 class Parser:

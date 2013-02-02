@@ -1,7 +1,7 @@
 import unittest
 from EdiDocument import EdiDocument
 from EdiParser import Parser
-from EdiParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
+from ParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
 
 class TestParser(unittest.TestCase):
 
