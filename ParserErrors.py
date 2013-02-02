@@ -9,7 +9,6 @@ class InvalidFileTypeError(ParserError):
         segment -- segment in which the error occurred
         msg  -- explanation of the error
     """
-
     def __init__(self, segment, msg):
         self.expr = segment
         self.msg = msg

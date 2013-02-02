@@ -1,14 +1,11 @@
 import unittest
-from EdiParser import Parser
+from Fixtures import FixtureReader, FixtureFiles
 
 class TestSTSegmentParsing(unittest.TestCase):
 
     def setUp(self):
-        simpleFile = open('fixtures/General/MultipleTransactions.edi', 'r')
-        self.simpleEdiText = simpleFile.read()
-        parser = Parser()
-        self.multiple_transaction_edi_document = parser.parse_document(document_text=self.simpleEdiText)
-        simpleFile.close()
+        self.multiple_transaction_edi_document = \
+        FixtureReader().read_edi_file(FixtureFiles.single_group_multiple_transactions_file)
 
     def test_segment_type(self):
         """Test the segment type name from the class default."""

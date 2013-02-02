@@ -1,18 +1,15 @@
 import unittest
-from EdiDocument import EdiDocument
 from EdiParser import Parser
 from Obfuscator import Obfuscator
+from Fixtures import FixtureFiles, FixtureReader
 
 class TestObfuscator(unittest.TestCase):
 
     def setUp(self):
         self.parser = Parser()
         self.obfuscator = Obfuscator()
-        simpleFile = open('fixtures/General/Simple.edi', 'r')
-        self.simpleEdiText = simpleFile.read()
-        self.simpleEdiDocument = self.parser.parse_document(document_text=self.simpleEdiText)
+        self.simpleEdiDocument = FixtureReader().read_edi_file(FixtureFiles.simple_edi_file)
         self.obfuscated_doc = self.obfuscator.obfuscate(self.simpleEdiDocument)
-        simpleFile.close()
 
     def test_obfuscator_sender_ids(self):
         id_value = "8005551234AA   "

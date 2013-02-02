@@ -6,7 +6,6 @@ from ParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
 class TestParser(unittest.TestCase):
 
     def setUp(self):
-
         self.goodISAWithAsterisk ="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
         self.goodISAWithPipe ="ISA|00|          |00|          |12|8005551234AA   |12|8005556789BB   |110408|1221|U|00401|000006617|0|P|>~"
         self.badISA="PSA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"

@@ -1,15 +1,12 @@
 import unittest
 from EdiValidator import Validator
-from EdiParser import Parser
+
+from Fixtures import FixtureReader, FixtureFiles
 
 class TestParsingMultipleGroups(unittest.TestCase):
 
     def setUp(self):
-        multiple_groups_handle = open('fixtures/General/MultipleGroups.edi', 'r')
-        self.multple_groups_file = multiple_groups_handle.read()
-        parser = Parser()
-        self.multiple_groups_doc = parser.parse_document(document_text=self.multple_groups_file)
-        multiple_groups_handle.close()
+        self.multiple_groups_doc = FixtureReader().read_edi_file(FixtureFiles.multiple_groups_file)
 
     def test_validity_of_parsed_document(self):
         """Ensure the document passes the validator"""

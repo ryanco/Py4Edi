@@ -1,15 +1,11 @@
 import unittest
 from EdiDocument import EdiDocument
-from EdiParser import Parser
+from Fixtures import FixtureFiles, FixtureReader
 
 class TestIEASegmentParsing(unittest.TestCase):
 
     def setUp(self):
-        simpleFile = open('fixtures/General/Simple.edi', 'r')
-        self.simpleEdiText = simpleFile.read()
-        parser = Parser()
-        self.simpleEdiDocument = parser.parse_document(document_text=self.simpleEdiText)
-        simpleFile.close()
+        self.simpleEdiDocument = FixtureReader().read_edi_file(FixtureFiles.simple_edi_file)
 
     def test_segment_type(self):
         """Test the segment type name from the class default."""
