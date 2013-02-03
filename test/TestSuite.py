@@ -12,6 +12,7 @@ import TestInterchangeValidator
 import TestParsingMultipleGroups
 import TestObfuscator
 import TestFixtureReader
+import TestFormatEdiDocument
 
 loader = unittest.TestLoader()
 
@@ -28,6 +29,7 @@ suite.addTests(loader.loadTestsFromModule(TestObfuscator))
 suite.addTests(loader.loadTestsFromModule(TestInterchangeValidator))
 suite.addTests(loader.loadTestsFromModule(TestParsingMultipleGroups))
 suite.addTests(loader.loadTestsFromModule(TestFixtureReader))
+suite.addTests(loader.loadTestsFromModule(TestFormatEdiDocument))
 
 runner = unittest.TextTestRunner(verbosity=3)
 result = runner.run(suite)

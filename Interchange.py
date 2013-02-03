@@ -1,4 +1,3 @@
-from Group import Group
 from Segment import Segment
 from Element import Element
 from EdiValidationErrors import IDMismatchError
@@ -12,9 +11,15 @@ class Interchange():
 
     def is_valid(self):
         if(self.header.isa13.content==self.trailer.iea02.content):
-            return True;
+            return True
         else:
             raise IDMismatchError(msg="", segment="")
+
+    def format_as_edi(self, element_separator, segment_terminator, sub_element_separator):
+        document=self.header.format_as_edi(element_separator, segment_terminator, sub_element_separator)
+        document+=self.trailer.format_as_edi(element_separator, segment_terminator, sub_element_separator)
+
+        return document
 
 class InterchangeHeader(Segment):
     """An EDI X12 interchange header"""
@@ -108,6 +113,7 @@ class InterchangeHeader(Segment):
         self.fields.append(self.isa16)
 
 
+
 class InterchangeTrailer(Segment):
     """An EDI X12 interchange Trailer"""
     def __init__(self):
@@ -128,3 +134,5 @@ class InterchangeTrailer(Segment):
             description="Interchange Control Number",
             required=True, minLength=1, maxLength=9, content="")
         self.fields.append(self.iea02)
+
+

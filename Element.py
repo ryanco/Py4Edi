@@ -1,5 +1,5 @@
 
-class Element():
+class Element(object):
     """A generic segment"""
     def __init__(self, name="", description="", required="", minLength="", maxLength="", content=""):
         self.name = name
@@ -21,3 +21,6 @@ class Element():
                           +" characters, expected "+str(self.maxLength)+" characters."
 
         return True, ""
+
+    def __str__(self):
+        return str(self.content)

@@ -18,7 +18,7 @@ class Parser:
         document_text -- the text to parse into an EDI document.
 
         """
-        self.documentText = document_text.strip()
+        self.documentText = document_text.lstrip()
         #attach the original document text to the document.
         self.ediDocument.document_text=self.documentText
 
@@ -54,8 +54,8 @@ class Parser:
                 if lastHeaderField[1:2]:
                     self.ediDocument.segment_terminator = lastHeaderField[1:2]
                 else:
-                    raise SegmentTerminatorNotFoundError(msg="The segment terminator is not present in the"
-                                                        " Interchange Header, can't parse file.")
+                    raise SegmentTerminatorNotFoundError(
+                        msg="The segment terminator is not present in the Interchange Header, can't parse file.")
 
 
     def __separate_and_route_segments(self):
@@ -102,8 +102,7 @@ class Parser:
         """Parse the interchange trailer segment"""
         trailer = self.ediDocument.interchange.trailer
         trailerFieldList = segment.split(self.ediDocument.element_separator)
-        trailer.iea01.content=trailerFieldList[1]
-        trailer.iea02.content=trailerFieldList[2]
+        self.__parse_segment(trailer, trailerFieldList)
 
     def __parse_transaction_set_header(self, segment):
         """Parse transaction set header

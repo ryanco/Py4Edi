@@ -8,6 +8,7 @@ class TestParser(unittest.TestCase):
     def setUp(self):
         self.goodISAWithAsterisk ="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
         self.goodISAWithPipe ="ISA|00|          |00|          |12|8005551234AA   |12|8005556789BB   |110408|1221|U|00401|000006617|0|P|>~"
+        self.goodISAWithNewlineTerminator ="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>\n"
         self.badISA="PSA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
         self.goodISAWithLeadingSpaces="       ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
         self.twoSegments="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~IEA*0*000006617~"
@@ -27,6 +28,11 @@ class TestParser(unittest.TestCase):
     def test_good_isa_segment_pipe_separator(self):
         """Test a valid ISA segment"""
         document = self.parser.parse_document(document_text=self.goodISAWithPipe)
+        self.assertEqual(document.interchange.header.id.name, EdiDocument().interchange.header.id.name)
+
+    def test_good_isa_segment_new_line_terminator(self):
+        """Test a valid ISA with a new line segment terminator"""
+        document = self.parser.parse_document(document_text=self.goodISAWithNewlineTerminator)
         self.assertEqual(document.interchange.header.id.name, EdiDocument().interchange.header.id.name)
 
     def test_good_isa_segment_version(self):
