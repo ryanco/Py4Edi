@@ -17,7 +17,7 @@ class TestParsingMultipleGroups(unittest.TestCase):
         self.assertEqual("987654321", self.multiple_groups_doc.interchange.groups[0].header.gs06.content)
         self.assertEqual("987654322", self.multiple_groups_doc.interchange.groups[1].header.gs06.content)
 
-    def test_parsing_transactions_in_mulitple_groups(self):
+    def test_parsing_transactions_in_multiple_groups(self):
         """Test parsing transactions under multiple groups by ensuring we can get the transaction control number"""
         self.assertEqual("000000003",
             self.multiple_groups_doc.interchange.groups[0].transaction_sets[2].header.st02.content)

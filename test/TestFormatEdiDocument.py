@@ -27,3 +27,8 @@ class TestFormatEdiDocument(unittest.TestCase):
         interchange_document = Parser().parse_document(interchange_edi)
         formatted_document = interchange_document.format_as_edi()
         self.assertEqual(interchange_edi, formatted_document)
+
+    def test_simple_edi_document(self):
+        simple_edi_document = FixtureReader().read_edi_file(FixtureFiles.simple_edi_file)
+        formatted_document = simple_edi_document.format_as_edi()
+        self.assertEqual(simple_edi_document.document_text, formatted_document)

@@ -1,12 +1,13 @@
+from Envelope import GroupEnvelope
 from Element import Element
 from Segment import Segment
 
-class Group():
+class Group(GroupEnvelope):
     """An EDI X12 groups"""
     def __init__(self):
+        GroupEnvelope.__init__(self)
         self.header= GroupHeader()
         self.trailer=GroupTrailer()
-        self.transaction_sets=[]
 
 class GroupHeader(Segment):
     """An EDI X12 groups header"""

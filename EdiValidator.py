@@ -11,7 +11,7 @@ class Validator:
         self.ediDocument = ediDocument
         self.__validate_fields()
         self.__validate_interchange()
-        if(len(Validator.validation_report.error_list)==0):
+        if len(Validator.validation_report.error_list)==0:
             return True
         else:
             return False

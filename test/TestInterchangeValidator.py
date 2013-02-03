@@ -18,7 +18,7 @@ class TestISASegmentValidator(unittest.TestCase):
         """Testing when ISA and IEA control IDs do not match"""
         self.assertRaises(IDMismatchError, Validator().is_valid_document, self.control_id_mismatch_edi_document)
 
-    def test_mismatch_interchange_control_id_validation_report(selfs):
+    def test_mismatch_interchange_control_id_validation_report(self):
         pass
 
 

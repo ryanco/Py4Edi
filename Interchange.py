@@ -1,25 +1,21 @@
+from Envelope import InterchangeEnvelope
 from Segment import Segment
 from Element import Element
 from EdiValidationErrors import IDMismatchError
 
-class Interchange():
+class Interchange(InterchangeEnvelope):
     """An EDI X12 interchange"""
     def __init__(self):
+        InterchangeEnvelope.__init__(self)
         self.header= InterchangeHeader()
         self.trailer=InterchangeTrailer()
         self.groups = []
 
     def is_valid(self):
-        if(self.header.isa13.content==self.trailer.iea02.content):
+        if self.header.isa13.content==self.trailer.iea02.content:
             return True
         else:
             raise IDMismatchError(msg="", segment="")
-
-    def format_as_edi(self, element_separator, segment_terminator, sub_element_separator):
-        document=self.header.format_as_edi(element_separator, segment_terminator, sub_element_separator)
-        document+=self.trailer.format_as_edi(element_separator, segment_terminator, sub_element_separator)
-
-        return document
 
 class InterchangeHeader(Segment):
     """An EDI X12 interchange header"""
