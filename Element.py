@@ -23,4 +23,10 @@ class Element(object):
         return True, ""
 
     def __str__(self):
-        return str(self.content)
+        if self.required:
+            return str(self.content)
+
+        if self.content!="":
+            return str(self.content)
+
+        return ""

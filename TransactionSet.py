@@ -1,12 +1,14 @@
+from Envelope import TransactionSetEnvelope
 from Element import Element
 from Segment import Segment
 
-class TransactionSet():
+class TransactionSet(TransactionSetEnvelope):
     """An EDI X12 transaction set"""
     def __init__(self):
+        TransactionSetEnvelope.__init__(self)
         self.header= TransactionSetHeader()
         self.trailer=TransactionSetTrailer()
-        self.transaction_body=[]
+
 
 class TransactionSetHeader(Segment):
     """The transaction set header"""
@@ -39,7 +41,7 @@ class TransactionSetTrailer(Segment):
     """The transaction set header"""
     def __init__(self):
         Segment.__init__(self)
-        self.fieldCount=3
+        self.fieldCount=2
 
         self.id=Element(name="SE",
             description="Transaction Set Trailer",

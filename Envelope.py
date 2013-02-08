@@ -43,3 +43,13 @@ class GroupEnvelope(Envelope):
     def format_as_edi(self, element_separator, segment_terminator, sub_element_separator):
         return super(GroupEnvelope, self).format_as_edi(element_separator,
             segment_terminator, sub_element_separator, self.transaction_sets)
+
+class TransactionSetEnvelope(Envelope):
+
+    def __init__(self):
+        self.transaction_body=[]
+        Envelope.__init__(self)
+
+    def format_as_edi(self, element_separator, segment_terminator, sub_element_separator):
+        return super(TransactionSetEnvelope, self).format_as_edi(element_separator,
+            segment_terminator, sub_element_separator, self.transaction_body)

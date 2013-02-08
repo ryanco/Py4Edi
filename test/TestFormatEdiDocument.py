@@ -32,3 +32,8 @@ class TestFormatEdiDocument(unittest.TestCase):
         simple_edi_document = FixtureReader().read_edi_file(FixtureFiles.simple_edi_file)
         formatted_document = simple_edi_document.format_as_edi()
         self.assertEqual(simple_edi_document.document_text, formatted_document)
+
+    def test_multiple_groups_edi_document(self):
+        multiple_edi_groups = FixtureReader().read_edi_file(FixtureFiles.multiple_groups_file)
+        formatted_document = multiple_edi_groups.format_as_edi()
+        self.assertEqual(multiple_edi_groups.document_text, formatted_document)

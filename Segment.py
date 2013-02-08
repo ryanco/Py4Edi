@@ -15,10 +15,20 @@ class Segment(object):
             return out
 
         for index, field in enumerate(self.fields):
-            out += str(field)
-            if index<self.fieldCount:
-                out+=self.element_separator
-            elif index==self.fieldCount:
+            if field.content:
+                out += str(field)
+
+                if index<self.fieldCount:
+                    #if the next field is required add the separator
+                    if self.fields[index+1].required:
+                        out+=self.element_separator
+                    #if the next field is optional but has content add the separator
+                    elif self.fields[index+1].content:
+                        out+=self.element_separator
+                    #finally if the next field is not the last element add the seperator
+                    elif index+1!=self.fieldCount:
+                        out+=self.element_separator
+            if index==self.fieldCount:
                 out+=self.segment_terminator
         return out
 
