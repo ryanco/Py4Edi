@@ -9,6 +9,7 @@ class Segment(object):
         self.segment_terminator="~"
         self.sub_element_separator=">"
 
+    #Todo refactor to several methods.
     def __str__(self):
         out = ""
         if self.__all_fields_empty():
@@ -25,7 +26,7 @@ class Segment(object):
                     #if the next field is optional but has content add the separator
                     elif self.fields[index+1].content:
                         out+=self.element_separator
-                    #finally if the next field is not the last element add the seperator
+                    #finally if the next field is not the last element add the separator
                     elif index+1!=self.fieldCount:
                         out+=self.element_separator
             if index==self.fieldCount:
