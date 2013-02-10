@@ -14,6 +14,8 @@ import TestObfuscator
 import TestFixtureReader
 import TestFormatEdiDocument
 import TestSegment
+import TestEdiDocumentConfiguration
+import TestEnvelope
 
 loader = unittest.TestLoader()
 
@@ -32,6 +34,8 @@ suite.addTests(loader.loadTestsFromModule(TestParsingMultipleGroups))
 suite.addTests(loader.loadTestsFromModule(TestFixtureReader))
 suite.addTests(loader.loadTestsFromModule(TestFormatEdiDocument))
 suite.addTests(loader.loadTestsFromModule(TestSegment))
+suite.addTests(loader.loadTestsFromModule(TestEdiDocumentConfiguration))
+suite.addTests(loader.loadTestsFromModule(TestEnvelope))
 
 runner = unittest.TextTestRunner(verbosity=3)
 result = runner.run(suite)

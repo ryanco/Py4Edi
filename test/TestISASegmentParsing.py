@@ -13,7 +13,7 @@ class TestISASegmentParsing(unittest.TestCase):
 
     def test_segment_separator(self):
         """Test the segment type name from the class default."""
-        self.assertEqual("*", EdiDocument().element_separator)
+        self.assertEqual("*", EdiDocument().document_configuration.element_separator)
 
     def test_segment_size(self):
         """Test the segment type size from the class default"""
@@ -85,4 +85,4 @@ class TestISASegmentParsing(unittest.TestCase):
 
     def test_segment_terminator(self):
         """Test the segment field from the instance"""
-        self.assertEqual("~", self.simpleEdiDocument.segment_terminator)
+        self.assertEqual("~", self.simpleEdiDocument.document_configuration.segment_terminator)

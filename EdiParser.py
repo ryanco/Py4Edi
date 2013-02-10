@@ -40,8 +40,8 @@ class Parser:
         """Parse the interchange header segment"""
         header = self.ediDocument.interchange.header
         #The edi separator is always at position 4
-        self.ediDocument.element_separator = self.documentText[3:4]
-        headerFieldList = self.documentText.split(self.ediDocument.element_separator)
+        self.ediDocument.document_configuration.element_separator = self.documentText[3:4]
+        headerFieldList = self.documentText.split(self.ediDocument.document_configuration.element_separator)
         for index, isa in enumerate(headerFieldList):
             if index==12:
                 self.ediDocument.version=isa
@@ -52,7 +52,7 @@ class Parser:
                 #the sub-element separator is always the first character in this element.
                 header.isa16.content=lastHeaderField[0:1]
                 if lastHeaderField[1:2]:
-                    self.ediDocument.segment_terminator = lastHeaderField[1:2]
+                    self.ediDocument.document_configuration.segment_terminator = lastHeaderField[1:2]
                 else:
                     raise SegmentTerminatorNotFoundError(
                         msg="The segment terminator is not present in the Interchange Header, can't parse file.")
@@ -60,7 +60,7 @@ class Parser:
 
     def __separate_and_route_segments(self):
         """Handles separating all the segments"""
-        self.segment_list = self.documentText.split(self.ediDocument.segment_terminator)
+        self.segment_list = self.documentText.split(self.ediDocument.document_configuration.segment_terminator)
         for segment in self.segment_list:
             self.__route_segment_to_parser(segment)
 
@@ -87,13 +87,13 @@ class Parser:
     def __parse_group_header(self, segment):
         self.current_group = Group()
         header = GroupHeader()
-        headerFieldList = segment.split(self.ediDocument.element_separator)
+        headerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(header, headerFieldList)
         self.current_group.header = header
 
     def __parse_group_trailer(self, segment):
         trailer = GroupTrailer()
-        trailerFieldList = segment.split(self.ediDocument.element_separator)
+        trailerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(trailer, trailerFieldList)
         self.current_group.trailer=trailer
         self.ediDocument.interchange.groups.append(self.current_group)
@@ -101,7 +101,7 @@ class Parser:
     def __parse_interchange_trailer(self, segment):
         """Parse the interchange trailer segment"""
         trailer = self.ediDocument.interchange.trailer
-        trailerFieldList = segment.split(self.ediDocument.element_separator)
+        trailerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(trailer, trailerFieldList)
 
     def __parse_transaction_set_header(self, segment):
@@ -110,7 +110,7 @@ class Parser:
         """
         self.current_transaction=TransactionSet()
         transactionHeader = TransactionSetHeader()
-        headerFieldList = segment.split(self.ediDocument.element_separator)
+        headerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(transactionHeader, headerFieldList)
         self.current_transaction.header=transactionHeader
 
@@ -119,7 +119,7 @@ class Parser:
         Adds the completed transaction to a edi document.
         """
         transactionTrailer = TransactionSetTrailer()
-        trailerFieldList = segment.split(self.ediDocument.element_separator)
+        trailerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(transactionTrailer, trailerFieldList)
         self.current_transaction.trailer=transactionTrailer
         self.current_group.transaction_sets.append(self.current_transaction)

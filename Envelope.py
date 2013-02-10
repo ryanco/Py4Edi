@@ -5,51 +5,36 @@ class Envelope(object):
     def __init__(self):
         self.header=Segment()
         self.trailer=Segment()
+        self.body=[]
 
-    def format_as_edi(self, element_separator, segment_terminator, sub_element_separator):
-        document=self.header.format_as_edi(element_separator, segment_terminator, sub_element_separator)
-        document+=self.trailer.format_as_edi(element_separator, segment_terminator, sub_element_separator)
+    def format_as_edi(self, document_configuration):
+        document=self.header.format_as_edi(document_configuration)
+        document+=self.__format_body_as_edi(document_configuration)
+        document+=self.trailer.format_as_edi(document_configuration)
         return document
 
-    def format_as_edi(self, element_separator, segment_terminator, sub_element_separator, children):
-        document=self.header.format_as_edi(element_separator, segment_terminator, sub_element_separator)
-        document+=self.format_children_as_edi(element_separator, segment_terminator, sub_element_separator, children)
-        document+=self.trailer.format_as_edi(element_separator, segment_terminator, sub_element_separator)
-        return document
-
-    def format_children_as_edi(self, element_separator, segment_terminator, sub_element_separator, children):
+    def __format_body_as_edi(self, document_configuration):
             document=""
-            for child in children:
-                document+=child.format_as_edi(element_separator, segment_terminator, sub_element_separator)
+            for item in self.body:
+                document+=item.format_as_edi(document_configuration)
             return document
 
 class InterchangeEnvelope(Envelope):
 
     def __init__(self):
-        self.groups=[]
         Envelope.__init__(self)
-
-    def format_as_edi(self, element_separator, segment_terminator, sub_element_separator):
-        return super(InterchangeEnvelope, self).format_as_edi(element_separator,
-            segment_terminator, sub_element_separator, self.groups)
+        self.groups=self.body
 
 
 class GroupEnvelope(Envelope):
 
     def __init__(self):
-        self.transaction_sets=[]
         Envelope.__init__(self)
+        self.transaction_sets=self.body
 
-    def format_as_edi(self, element_separator, segment_terminator, sub_element_separator):
-        return super(GroupEnvelope, self).format_as_edi(element_separator,
-            segment_terminator, sub_element_separator, self.transaction_sets)
 
 class TransactionSetEnvelope(Envelope):
 
     def __init__(self):
-        self.transaction_body=[]
         Envelope.__init__(self)
-
-    def format_as_edi(self, element_separator, segment_terminator, sub_element_separator):
-        return super(TransactionSetEnvelope, self).format_as_edi(element_separator,
-            segment_terminator, sub_element_separator, self.transaction_body)
+        self.transaction_body=self.body

@@ -9,7 +9,6 @@ class Interchange(InterchangeEnvelope):
         InterchangeEnvelope.__init__(self)
         self.header= InterchangeHeader()
         self.trailer=InterchangeTrailer()
-        self.groups = []
 
     def is_valid(self):
         if self.header.isa13.content==self.trailer.iea02.content:
