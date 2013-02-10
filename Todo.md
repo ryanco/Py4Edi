@@ -11,6 +11,6 @@ Validation
 
 Formatting
 =====
--output edi string
--output json string
--output xml string
+- output edi string
+- output json string
+- output xml string
