@@ -28,7 +28,7 @@ class TransactionSetHeader(Segment):
 
         self.st02=Element(name="ST02",
             description="Transaction Set Control Number",
-            required=True, minLength=4, maxLength=9, content="2")
+            required=True, minLength=4, maxLength=9, content="")
         self.fields.append(self.st02)
     
         self.st03=Element(name="ST03",
@@ -55,5 +55,5 @@ class TransactionSetTrailer(Segment):
 
         self.se02=Element(name="SE02",
             description="Transaction Set Control Number",
-            required=True, minLength=4, maxLength=9, content="2")
+            required=True, minLength=4, maxLength=9, content="")
         self.fields.append(self.se02)

@@ -3,7 +3,7 @@ General
 
 Parsing
 =====
-- generically handling segments and envelopes
+- generically handling segments and envelopes inside transactions.
 
 
 Validation
@@ -20,3 +20,7 @@ Formatting
 - output edi string
 - output json string
 - output xml string
+
+Obfuscation
+=====
+- finish 810 obfuscation

@@ -16,6 +16,8 @@ import TestFormatEdiDocument
 import TestSegment
 import TestEdiDocumentConfiguration
 import TestEnvelope
+import TestSimple810Document
+import TestElement
 
 loader = unittest.TestLoader()
 
@@ -36,6 +38,8 @@ suite.addTests(loader.loadTestsFromModule(TestFormatEdiDocument))
 suite.addTests(loader.loadTestsFromModule(TestSegment))
 suite.addTests(loader.loadTestsFromModule(TestEdiDocumentConfiguration))
 suite.addTests(loader.loadTestsFromModule(TestEnvelope))
+suite.addTests(loader.loadTestsFromModule(TestSimple810Document))
+suite.addTests(loader.loadTestsFromModule(TestElement))
 
 runner = unittest.TextTestRunner(verbosity=3)
 result = runner.run(suite)

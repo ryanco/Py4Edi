@@ -8,6 +8,7 @@ class FixtureFiles():
     interchange_control_id_mismatch_error_document='fixtures/validation_errors/InterchangeControlIDMismatch.edi'
     multiple_groups_file='fixtures/General/MultipleGroups.edi'
     single_group_multiple_transactions_file='fixtures/General/MultipleTransactions.edi'
+    simple_810_file='fixtures/810/Simple810.edi'
 
 
 class FixtureReader():

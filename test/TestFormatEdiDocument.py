@@ -37,3 +37,8 @@ class TestFormatEdiDocument(unittest.TestCase):
         multiple_edi_groups = FixtureReader().read_edi_file(FixtureFiles.multiple_groups_file)
         formatted_document = multiple_edi_groups.format_as_edi()
         self.assertEqual(multiple_edi_groups.document_text, formatted_document)
+
+    def test_multiple_transactions_edi_document(self):
+        multiple_transactions = FixtureReader().read_edi_file(FixtureFiles.single_group_multiple_transactions_file)
+        formatted_document = multiple_transactions.format_as_edi()
+        self.assertEqual(multiple_transactions.document_text, formatted_document)

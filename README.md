@@ -1,7 +1,7 @@
 Py4Edi
 ======
 
-A python project for working with X12 EDI documents.
+A python project for working with X12 EDI documents.Right now it is mostly an API for supporting reading in an EDI X12 00401 document.
 
 
 My Goals
