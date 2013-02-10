@@ -3,10 +3,16 @@ General
 
 Parsing
 =====
+- generically handling segments and envelopes
 
 
 Validation
 =====
+- element
+- segment
+- envelope
+- document
+- validation reporting
 
 
 Formatting
