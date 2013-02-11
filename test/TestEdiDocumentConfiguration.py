@@ -12,5 +12,5 @@ class TestEdiDocumentConfiguration(unittest.TestCase):
         self.assertEqual("~", config.segment_terminator)
         self.assertEqual(">", config.sub_element_separator)
 
-if __name__ == '__main__':
+if __name__ == '__main__':# pragma: no cover
     unittest.main()

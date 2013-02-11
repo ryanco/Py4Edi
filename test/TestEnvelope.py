@@ -35,13 +35,6 @@ class MockEnvelopeWithBody(Envelope):
         self.items.append(MockBDYHeaderSegment())
         self.items.append(MockBDZTrailerSegment())
 
-class MockBodyEnvelope(Envelope):
-
-    def __init__(self):
-        Envelope.__init__(self)
-        self.header=MockBDYHeaderSegment()
-        self.trailer=MockBDZTrailerSegment()
-
 
 class MockHeaderSegment(Segment):
 
@@ -140,3 +133,6 @@ class MockBDZTrailerSegment(Segment):
             description="TEST 02 Segment",
             required=False, minLength=1, maxLength=4, content="123")
         self.fields.append(self.test02)
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

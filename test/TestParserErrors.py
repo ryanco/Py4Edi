@@ -9,3 +9,7 @@ class TestParserErrors(unittest.TestCase):
         message = "Test Message"
         exception = InvalidFileTypeError(segment=Segment(), msg=message)
         self.assertEqual(message, str(exception))
+
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

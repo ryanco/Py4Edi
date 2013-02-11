@@ -46,3 +46,6 @@ class TestGSSegmentParsing(unittest.TestCase):
     def test_version_indicator_code(self):
         """Test the GS08 segment"""
         self.assertEqual("004010", self.simpleEdiDocument.interchange.groups[0].header.gs08.content)
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

@@ -42,3 +42,6 @@ class TestFormatEdiDocument(unittest.TestCase):
         multiple_transactions = FixtureReader().read_edi_file(FixtureFiles.single_group_multiple_transactions_file)
         formatted_document = multiple_transactions.format_as_edi()
         self.assertEqual(multiple_transactions.document_text, formatted_document)
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

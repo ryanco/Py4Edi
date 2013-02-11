@@ -87,3 +87,6 @@ class TestParser(unittest.TestCase):
         self.assertEqual("00", document.interchange.header.isa01.content)
         self.assertEqual("1", document.interchange.trailer.iea01.content)
 
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()
+

@@ -21,6 +21,9 @@ class TestISASegmentValidator(unittest.TestCase):
     def test_mismatch_interchange_control_id_validation_report(self):
         pass
 
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()
+
 
 
 

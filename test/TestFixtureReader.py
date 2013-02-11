@@ -16,3 +16,6 @@ class TestFixtureReader(unittest.TestCase):
     def test_non_edi_file(self):
         self.assertRaises(InvalidFileTypeError, FixtureReader().read_edi_file,
             "fixtures/validation_errors/xml.edi")
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

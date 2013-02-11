@@ -23,3 +23,6 @@ class TestParsingMultipleGroups(unittest.TestCase):
             self.multiple_groups_doc.interchange.groups[0].transaction_sets[2].header.st02.content)
         self.assertEqual("000000006",
             self.multiple_groups_doc.interchange.groups[1].transaction_sets[2].header.st02.content)
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

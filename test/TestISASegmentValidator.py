@@ -363,3 +363,6 @@ class TestISASegmentValidator(unittest.TestCase):
         testDocument ="ISA*00*          *00*          *12*8005551234AA   *12*8005555678BB   *131022*1400*U*00401*000003821*0*P*>~0"
         document = self.parser.parse_document(testDocument)
         self.assertEqual(">", document.interchange.header.isa16.content)
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

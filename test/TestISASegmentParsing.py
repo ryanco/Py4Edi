@@ -86,3 +86,6 @@ class TestISASegmentParsing(unittest.TestCase):
     def test_segment_terminator(self):
         """Test the segment field from the instance"""
         self.assertEqual("~", self.simpleEdiDocument.document_configuration.segment_terminator)
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

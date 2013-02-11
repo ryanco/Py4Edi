@@ -22,3 +22,6 @@ class TestIEASegmentParsing(unittest.TestCase):
     def test_interchange_control_number(self):
         """Test the segment field from the instance"""
         self.assertEqual("000001234", self.simpleEdiDocument.interchange.trailer.iea02.content)
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

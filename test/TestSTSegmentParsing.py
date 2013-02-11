@@ -31,3 +31,6 @@ class TestSTSegmentParsing(unittest.TestCase):
         """Test that the parser captures the correct number of transactions"""
         self.assertEqual(3,
             len(self.multiple_transaction_edi_document.interchange.groups[0].transaction_sets))
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

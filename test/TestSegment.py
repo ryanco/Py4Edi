@@ -145,3 +145,6 @@ class MockOptionalSegment4(Segment):
             description="TEST 02 Segment",
             required=False, minLength=1, maxLength=4, content="")
         self.fields.append(self.test02)
+
+if __name__ == '__main__':# pragma: no cover
+    unittest.main()

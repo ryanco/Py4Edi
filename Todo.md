@@ -1,9 +1,11 @@
 General
 =====
+- Factory for creating mock documents/segments/envelopes
 
 Parsing
 =====
 - generically handling segments and envelopes inside transactions.
+- investigate chain of responsibility for parser, validator, formatter
 
 
 Validation
