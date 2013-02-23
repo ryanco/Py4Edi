@@ -6,6 +6,13 @@ class Validator:
 
     validation_report=ValidationReport()
 
+    def validate_document(self, edi_document):
+        self.ediDocument = edi_document
+        self.validation_report=self.ediDocument.validate()
+
+
+        return self.validation_report
+
     def is_valid_document(self, ediDocument=EdiDocument()):
         """validate the edi document"""
         self.ediDocument = ediDocument

@@ -5,7 +5,7 @@ from EdiValidator import Validator
 class TestSimple810DocumentInterchange(unittest.TestCase):
 
     def setUp(self):
-        self.document = FixtureReader().read_edi_file(FixtureFiles.simple_810_file)
+        self.document = FixtureFiles.documents.get(FixtureFiles.simple_810_file)
 
     def test_810_interchange_header_isa01(self):
         """Ensure the isa01 field is read correctly"""

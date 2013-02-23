@@ -1,4 +1,5 @@
 from Segment import Segment
+from Reports import ValidationReport
 
 class Envelope(object):
 
@@ -14,10 +15,21 @@ class Envelope(object):
         return document
 
     def __format_body_as_edi(self, document_configuration):
-            document=""
-            for item in self.body:
-                document+=item.format_as_edi(document_configuration)
-            return document
+        document=""
+        for item in self.body:
+            document+=item.format_as_edi(document_configuration)
+        return document
+
+    def validate(self):
+        report = ValidationReport()
+        self.header.validate()
+        self.__validate_body()
+        self.trailer.validate()
+        return report
+
+    def __validate_body(self):
+        for item in self.body:
+            item.validate()
 
 class InterchangeEnvelope(Envelope):
 

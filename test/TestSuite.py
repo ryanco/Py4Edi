@@ -1,4 +1,5 @@
 import unittest
+import Fixtures
 import TestISASegmentParsing
 import TestISASegmentValidator
 import TestIEASegmentParsing
@@ -41,5 +42,10 @@ suite.addTests(loader.loadTestsFromModule(TestEnvelope))
 suite.addTests(loader.loadTestsFromModule(TestSimple810Document))
 suite.addTests(loader.loadTestsFromModule(TestElement))
 
+#load the fixture files into memory once before all the tests
+Fixtures.FixtureFiles().load_documents()
+
 runner = unittest.TextTestRunner(verbosity=3)
 result = runner.run(suite)
+
+print "Done"

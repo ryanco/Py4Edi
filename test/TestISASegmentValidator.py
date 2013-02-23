@@ -3,14 +3,15 @@ from EdiParser import Parser
 from EdiValidator import Validator
 from EdiValidationErrors import FieldValidationError
 from ParserErrors import SegmentTerminatorNotFoundError
-from Fixtures import FixtureFiles, FixtureReader
+from Fixtures import FixtureFiles
+
 
 class TestISASegmentValidator(unittest.TestCase):
 
     def setUp(self):
         self.parser = Parser()
         self.validator = Validator()
-        self.simpleEdiDocument = FixtureReader().read_edi_file(FixtureFiles.simple_edi_file)
+        self.simpleEdiDocument = FixtureFiles.documents.get(FixtureFiles.simple_edi_file)
 
     def field_count_string(self, field="", length="",found=0, expected=0):
         """Utility method to build the return string"""

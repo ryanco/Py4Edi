@@ -14,6 +14,10 @@ class EdiDocument():
     def format_as_edi(self):
         return self.interchange.format_as_edi(self.document_configuration)
 
+    def validate(self):
+        report = self.interchange.validate()
+        return report
+
 
 
 

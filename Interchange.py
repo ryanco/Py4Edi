@@ -2,6 +2,7 @@ from Envelope import InterchangeEnvelope
 from Segment import Segment
 from Element import Element
 from EdiValidationErrors import IDMismatchError
+from Reports import ValidationReport
 
 class Interchange(InterchangeEnvelope):
     """An EDI X12 interchange"""
@@ -15,6 +16,19 @@ class Interchange(InterchangeEnvelope):
             return True
         else:
             raise IDMismatchError(msg="", segment="")
+
+    def validate(self):
+        report = ValidationReport()
+        if self.header.isa13.content!=self.trailer.iea02.content:
+            isa13_desc = self.header.isa13.description
+            isa13_name = self.header.isa13.name
+            iea02_desc = self.trailer.iea02.description
+            iea02_name = self.trailer.iea02.name
+            report.add_error(IDMismatchError(
+                msg="The "+isa13_desc+" in "+isa13_name+ " does not match " +iea02_desc +" in "+iea02_name,
+                segment=self.header.id))
+        return report
+
 
 class InterchangeHeader(Segment):
     """An EDI X12 interchange header"""

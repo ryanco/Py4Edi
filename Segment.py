@@ -17,6 +17,9 @@ class Segment(object):
         self.sub_element_separator = document_configuration.sub_element_separator
         return str(self)
 
+    def validate(self):
+        pass
+
     def __str__(self):
         """Return the segment as a string"""
         out = ""

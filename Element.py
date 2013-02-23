@@ -9,6 +9,9 @@ class Element(object):
         self.maxLength = maxLength
         self.content = content
 
+    def validate(self):
+        self.is_valid()
+
     def is_valid(self):
         """Validate the segment"""
 

@@ -1,25 +1,29 @@
 import unittest
-from EdiValidator import Validator
-from EdiValidationErrors import IDMismatchError
-from Fixtures import FixtureReader, FixtureFiles
+from Fixtures import FixtureFiles
 
 class TestISASegmentValidator(unittest.TestCase):
 
     def setUp(self):
-        self.simple_edi_document = FixtureReader().read_edi_file(FixtureFiles.simple_edi_file)
+        self.simple_edi_document = FixtureFiles.documents.get(FixtureFiles.simple_edi_file)
         self.control_id_mismatch_edi_document = \
-        FixtureReader().read_edi_file(FixtureFiles.interchange_control_id_mismatch_error_document)
+        FixtureFiles.documents.get(FixtureFiles.interchange_control_id_mismatch_error_document)
 
     def test_matching_interchange_control_ids(self):
         """Testing when ISA and IEA control IDs match"""
-        self.assertTrue(Validator().is_valid_document(self.simple_edi_document))
+        report = self.simple_edi_document.validate()
+        self.assertTrue(report.is_document_valid())
 
     def test_mismatching_interchange_control_ids(self):
         """Testing when ISA and IEA control IDs do not match"""
-        self.assertRaises(IDMismatchError, Validator().is_valid_document, self.control_id_mismatch_edi_document)
+        report = self.control_id_mismatch_edi_document.validate()
+        self.assertFalse(report.is_document_valid())
 
     def test_mismatch_interchange_control_id_validation_report(self):
-        pass
+        """Testing the validation report when ISA and IEA control IDS do not match"""
+        report = self.control_id_mismatch_edi_document.validate()
+        self.assertEqual(1, len(report.error_list))
+        self.assertEqual("The Interchange Control Number in ISA13 does not match Interchange Control Number in IEA02",
+                         report.error_list[0].msg)
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()
