@@ -12,11 +12,15 @@ class TestEnvelope(unittest.TestCase):
         edi_string = "HDR|12|123456\nTLR|1|123456\n"
         self.assertEqual(edi_string, envelope.format_as_edi(cfg))
 
-    def test_envelope_format_as_edi_with_bod(self):
+    def test_envelope_format_as_edi_with_body(self):
         envelope = MockEnvelopeWithBody()
         cfg = EdiDocumentConfiguration("00401", "|", "\n", ">")
         edi_string = "HDR|12|123456\nBDY|14|123\nBDZ|1|123\nTLR|1|123456\n"
         self.assertEqual(edi_string, envelope.format_as_edi(cfg))
+
+    def test_validate_is_valid(self):
+        envelope = MockEnvelopeWithBody()
+        self.assertTrue(envelope.validate())
 
 class MockEnvelope(Envelope):
 

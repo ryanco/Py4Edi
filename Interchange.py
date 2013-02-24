@@ -11,12 +11,6 @@ class Interchange(InterchangeEnvelope):
         self.header= InterchangeHeader()
         self.trailer=InterchangeTrailer()
 
-    def is_valid(self):
-        if self.header.isa13.content==self.trailer.iea02.content:
-            return True
-        else:
-            raise IDMismatchError(msg="", segment="")
-
     def validate(self):
         report = ValidationReport()
         if self.header.isa13.content!=self.trailer.iea02.content:

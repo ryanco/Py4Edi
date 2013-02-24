@@ -1,14 +1,17 @@
 from Element import Element
+from Settings import CurrentSettings
 
 class Segment(object):
     def __init__(self):
         self.fieldCount = 0
         self.fields = []
         self.id = Element()
-        self.element_separator = "*"
-        self.segment_terminator = "~"
-        self.sub_element_separator = ">"
+        self.element_separator = CurrentSettings.element_separator
+        self.segment_terminator = CurrentSettings.segment_terminator
+        self.sub_element_separator = CurrentSettings.sub_element_separator
 
+    def validate(self):
+        pass
 
     def format_as_edi(self, document_configuration):
         """Format the segment into an EDI string"""
@@ -17,8 +20,6 @@ class Segment(object):
         self.sub_element_separator = document_configuration.sub_element_separator
         return str(self)
 
-    def validate(self):
-        pass
 
     def __str__(self):
         """Return the segment as a string"""

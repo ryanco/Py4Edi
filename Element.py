@@ -10,10 +10,7 @@ class Element(object):
         self.content = content
 
     def validate(self):
-        self.is_valid()
-
-    def is_valid(self):
-        """Validate the segment"""
+        """Validate the element"""
 
         content_length = len(self.content)
         if content_length < self.minLength:

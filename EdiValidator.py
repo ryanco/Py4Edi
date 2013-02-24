@@ -25,10 +25,10 @@ class Validator:
 
     def __validate_fields(self):
         for field in self.ediDocument.interchange.header.fields:
-            valid, msg = field.is_valid()
+            valid, msg = field.validate()
             if not valid:
                 raise FieldValidationError(segment=field, msg=msg)
         return True
 
     def __validate_interchange(self):
-        return self.ediDocument.interchange.is_valid()
+        return self.ediDocument.interchange.validate()

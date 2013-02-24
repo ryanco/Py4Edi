@@ -19,6 +19,7 @@ import TestEdiDocumentConfiguration
 import TestEnvelope
 import TestSimple810Document
 import TestElement
+import TestSettings
 
 loader = unittest.TestLoader()
 
@@ -41,6 +42,7 @@ suite.addTests(loader.loadTestsFromModule(TestEdiDocumentConfiguration))
 suite.addTests(loader.loadTestsFromModule(TestEnvelope))
 suite.addTests(loader.loadTestsFromModule(TestSimple810Document))
 suite.addTests(loader.loadTestsFromModule(TestElement))
+suite.addTests(loader.loadTestsFromModule(TestSettings))
 
 #load the fixture files into memory once before all the tests
 Fixtures.FixtureFiles().load_documents()

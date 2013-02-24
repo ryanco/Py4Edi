@@ -21,21 +21,21 @@ class TestElement(unittest.TestCase):
     def test_is_valid_too_short(self):
         """Test an element that's content is too short"""
         element=Element(name="shorty", minLength=2, maxLength=4, content="1", required=True)
-        self.assertFalse(element.is_valid()[0])
+        self.assertFalse(element.validate()[0])
         self.assertEqual("Field shorty is too short. Found 1 characters, expected 2 characters.",
-            element.is_valid()[1])
+            element.validate()[1])
 
     def test_is_valid_too_long(self):
         """Test an element that's content is too long"""
         element=Element(name="longer", minLength=2, maxLength=4, content="12345", required=True)
-        self.assertFalse(element.is_valid()[0])
+        self.assertFalse(element.validate()[0])
         self.assertEqual("Field longer is too long. Found 5 characters, expected 4 characters.",
-            element.is_valid()[1])
+            element.validate()[1])
 
-    def test_is_valid(self):
+    def test_validate(self):
         """Test an element that's content is too long"""
         element=Element(name="just right", minLength=2, maxLength=4, content="123", required=True)
-        self.assertTrue(element.is_valid()[0])
+        self.assertTrue(element.validate()[0])
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()
