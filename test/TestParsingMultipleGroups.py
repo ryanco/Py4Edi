@@ -3,8 +3,8 @@ from EdiValidator import Validator
 
 from Fixtures import FixtureReader, FixtureFiles
 
-class TestParsingMultipleGroups(unittest.TestCase):
 
+class TestParsingMultipleGroups(unittest.TestCase):
     def setUp(self):
         self.multiple_groups_doc = FixtureReader().read_edi_file(FixtureFiles.multiple_groups_file)
 
@@ -20,9 +20,10 @@ class TestParsingMultipleGroups(unittest.TestCase):
     def test_parsing_transactions_in_multiple_groups(self):
         """Test parsing transactions under multiple groups by ensuring we can get the transaction control number"""
         self.assertEqual("000000003",
-            self.multiple_groups_doc.interchange.groups[0].transaction_sets[2].header.st02.content)
+                         self.multiple_groups_doc.interchange.groups[0].transaction_sets[2].header.st02.content)
         self.assertEqual("000000006",
-            self.multiple_groups_doc.interchange.groups[1].transaction_sets[2].header.st02.content)
+                         self.multiple_groups_doc.interchange.groups[1].transaction_sets[2].header.st02.content)
+
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()

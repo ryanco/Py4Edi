@@ -5,7 +5,6 @@ from ParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
 
 
 class Parser:
-
     def __init__(self):
         """Create a new Parser"""
         self.ediDocument = EdiDocument()
@@ -20,7 +19,7 @@ class Parser:
         """
         self.documentText = document_text.lstrip()
         #attach the original document text to the document.
-        self.ediDocument.document_text=self.documentText
+        self.ediDocument.document_text = self.documentText
 
         if self.documentText.startswith(EdiDocument().interchange.header.id.name):
             self.__parse_interchange_header()
@@ -29,10 +28,11 @@ class Parser:
         else:
             foundSegment = self.documentText[:3]
             raise InvalidFileTypeError(segment=foundSegment,
-                msg="Expected Element Envelope: "+EdiDocument().interchange.header.id.name+
-                    " but found Element Envelope: "+foundSegment+
-                    ".\n The length of the expected segment is: "+str(len(EdiDocument().interchange.header.id.name))+
-                    " the length of the segment found was: " +str(len(foundSegment)))
+                                       msg="Expected Element Envelope: " + EdiDocument().interchange.header.id.name +
+                                           " but found Element Envelope: " + foundSegment +
+                                           ".\n The length of the expected segment is: " + str(
+                                           len(EdiDocument().interchange.header.id.name)) +
+                                           " the length of the segment found was: " + str(len(foundSegment)))
 
         return self.ediDocument
 
@@ -43,14 +43,14 @@ class Parser:
         self.ediDocument.document_configuration.element_separator = self.documentText[3:4]
         headerFieldList = self.documentText.split(self.ediDocument.document_configuration.element_separator)
         for index, isa in enumerate(headerFieldList):
-            if index==12:
-                self.ediDocument.version=isa
-            if index<=15:
-                header.fields[index].content=isa
-            if index==16:
+            if index == 12:
+                self.ediDocument.version = isa
+            if index <= 15:
+                header.fields[index].content = isa
+            if index == 16:
                 lastHeaderField = headerFieldList[16]
                 #the sub-element separator is always the first character in this element.
-                header.isa16.content=lastHeaderField[0:1]
+                header.isa16.content = lastHeaderField[0:1]
                 if lastHeaderField[1:2]:
                     self.ediDocument.document_configuration.segment_terminator = lastHeaderField[1:2]
                 else:
@@ -95,7 +95,7 @@ class Parser:
         trailer = GroupTrailer()
         trailerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(trailer, trailerFieldList)
-        self.current_group.trailer=trailer
+        self.current_group.trailer = trailer
         self.ediDocument.interchange.groups.append(self.current_group)
 
     def __parse_interchange_trailer(self, segment):
@@ -108,11 +108,11 @@ class Parser:
         """Parse transaction set header
         Creates a new transaction set and set it as the current transaction set.
         """
-        self.current_transaction=TransactionSet()
+        self.current_transaction = TransactionSet()
         transactionHeader = TransactionSetHeader()
         headerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(transactionHeader, headerFieldList)
-        self.current_transaction.header=transactionHeader
+        self.current_transaction.header = transactionHeader
 
     def __parse_transaction_set_trailer(self, segment):
         """Parse the transaction set trailer.
@@ -121,5 +121,5 @@ class Parser:
         transactionTrailer = TransactionSetTrailer()
         trailerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(transactionTrailer, trailerFieldList)
-        self.current_transaction.trailer=transactionTrailer
+        self.current_transaction.trailer = transactionTrailer
         self.current_group.transaction_sets.append(self.current_transaction)

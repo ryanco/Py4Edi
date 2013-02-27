@@ -2,6 +2,7 @@ class Error(Exception):
     """Base class for exceptions in this module."""
     pass
 
+
 class FieldValidationError(Error):
     """Exception raised for errors in the input.
 
@@ -13,6 +14,7 @@ class FieldValidationError(Error):
     def __init__(self, segment, msg):
         self.segment = segment
         self.msg = msg
+
 
 class IDMismatchError(Error):
     """Exception raised for errors in the input.

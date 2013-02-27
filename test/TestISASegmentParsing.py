@@ -2,8 +2,8 @@ import unittest
 from EdiDocument import EdiDocument
 from Fixtures import FixtureFiles
 
-class TestISASegmentParsing(unittest.TestCase):
 
+class TestISASegmentParsing(unittest.TestCase):
     def setUp(self):
         self.simpleEdiDocument = FixtureFiles.documents.get(FixtureFiles.simple_edi_file)
 
@@ -86,6 +86,7 @@ class TestISASegmentParsing(unittest.TestCase):
     def test_segment_terminator(self):
         """Test the segment field from the instance"""
         self.assertEqual("~", self.simpleEdiDocument.document_configuration.segment_terminator)
+
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()

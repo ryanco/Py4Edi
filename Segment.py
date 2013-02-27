@@ -1,6 +1,7 @@
 from Element import Element
 from Settings import CurrentSettings
 
+
 class Segment(object):
     def __init__(self):
         self.fieldCount = 0
@@ -10,7 +11,7 @@ class Segment(object):
         self.segment_terminator = CurrentSettings.segment_terminator
         self.sub_element_separator = CurrentSettings.sub_element_separator
 
-    def validate(self):
+    def validate(self, report):
         pass
 
     def format_as_edi(self, document_configuration):

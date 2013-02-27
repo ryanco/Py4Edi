@@ -3,21 +3,21 @@ from EdiDocument import EdiDocument
 from EdiParser import Parser
 from ParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
 
-class TestParser(unittest.TestCase):
 
+class TestParser(unittest.TestCase):
     def setUp(self):
-        self.goodISAWithAsterisk ="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
-        self.goodISAWithPipe ="ISA|00|          |00|          |12|8005551234AA   |12|8005556789BB   |110408|1221|U|00401|000006617|0|P|>~"
-        self.goodISAWithNewlineTerminator ="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>\n"
-        self.badISA="PSA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
-        self.goodISAWithLeadingSpaces="       ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
-        self.twoSegments="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~IEA*0*000006617~"
-        self.newLineTerminator="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>\nIEA*0*000006617\n"
-        self.extraTerminator="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~\nIEA*0*000006617~\n"
-        self.nonEDIFile="<xml><test></test></xml>"
-        self.emptySegmentsWithNoTerminator="ISA****************"
-        self.emptySegmentsWithTerminator="ISA****************>~"
-        self.edi_with_ISA_GS_GE_IEA="ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~GS*IN*8005551234A*8005556789B*20110408*1221*6617*X*004010~GE*6*6617~IEA*1*000006617"
+        self.goodISAWithAsterisk = "ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
+        self.goodISAWithPipe = "ISA|00|          |00|          |12|8005551234AA   |12|8005556789BB   |110408|1221|U|00401|000006617|0|P|>~"
+        self.goodISAWithNewlineTerminator = "ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>\n"
+        self.badISA = "PSA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
+        self.goodISAWithLeadingSpaces = "       ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~"
+        self.twoSegments = "ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~IEA*0*000006617~"
+        self.newLineTerminator = "ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>\nIEA*0*000006617\n"
+        self.extraTerminator = "ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~\nIEA*0*000006617~\n"
+        self.nonEDIFile = "<xml><test></test></xml>"
+        self.emptySegmentsWithNoTerminator = "ISA****************"
+        self.emptySegmentsWithTerminator = "ISA****************>~"
+        self.edi_with_ISA_GS_GE_IEA = "ISA*00*          *00*          *12*8005551234AA   *12*8005556789BB   *110408*1221*U*00401*000006617*0*P*>~GS*IN*8005551234A*8005556789B*20110408*1221*6617*X*004010~GE*6*6617~IEA*1*000006617"
         self.parser = Parser()
 
     def test_good_isa_segment_asterisk_separator(self):
@@ -74,7 +74,8 @@ class TestParser(unittest.TestCase):
 
     def test_empty_segments_no_terminator(self):
         """Test a document with all empty ISA segments and no segment terminator"""
-        self.assertRaises(SegmentTerminatorNotFoundError, self.parser.parse_document, self.emptySegmentsWithNoTerminator)
+        self.assertRaises(SegmentTerminatorNotFoundError, self.parser.parse_document,
+                          self.emptySegmentsWithNoTerminator)
 
     def test_empty_segments_with_terminator(self):
         """Test to ensure the parser can find the segment terminator"""
@@ -86,6 +87,7 @@ class TestParser(unittest.TestCase):
         document = self.parser.parse_document(document_text=self.edi_with_ISA_GS_GE_IEA)
         self.assertEqual("00", document.interchange.header.isa01.content)
         self.assertEqual("1", document.interchange.trailer.iea01.content)
+
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()

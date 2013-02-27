@@ -2,14 +2,13 @@ from EdiDocument import EdiDocument
 from EdiValidationErrors import FieldValidationError
 from Reports import ValidationReport
 
-class Validator:
 
-    validation_report=ValidationReport()
+class Validator:
+    validation_report = ValidationReport()
 
     def validate_document(self, edi_document):
         self.ediDocument = edi_document
-        self.validation_report=self.ediDocument.validate()
-
+        self.validation_report = self.ediDocument.validate()
 
         return self.validation_report
 
@@ -18,7 +17,7 @@ class Validator:
         self.ediDocument = ediDocument
         self.__validate_fields()
         self.__validate_interchange()
-        if len(Validator.validation_report.error_list)==0:
+        if len(Validator.validation_report.error_list) == 0:
             return True
         else:
             return False
@@ -31,4 +30,5 @@ class Validator:
         return True
 
     def __validate_interchange(self):
-        return self.ediDocument.interchange.validate()
+        report = ValidationReport
+        return self.ediDocument.interchange.validate(report)

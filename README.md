@@ -14,3 +14,8 @@ Project Goals
 ======
 * Create a best effort parser for EDI X12 that tries to get the document into an object.
 * Support conversion of EDI to XML and JSON and the reverse.
+
+
+Dependencies
+=====
+Mock for unit testing: [Mock 1.0.1](http://www.voidspace.org.uk/python/mock/)

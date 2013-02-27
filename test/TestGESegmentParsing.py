@@ -4,7 +4,6 @@ from Fixtures import FixtureFiles
 
 
 class TestGESegmentParsing(unittest.TestCase):
-
     def setUp(self):
         self.simpleEdiDocument = FixtureFiles.documents.get(FixtureFiles.simple_edi_file)
 
@@ -23,6 +22,7 @@ class TestGESegmentParsing(unittest.TestCase):
     def test_interchange_control_number(self):
         """Test the segment field from the instance"""
         self.assertEqual("4321", self.simpleEdiDocument.interchange.groups[0].trailer.ge02.content)
+
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()

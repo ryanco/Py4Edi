@@ -6,7 +6,6 @@ from Fixtures import FixtureFiles
 
 
 class TestObfuscator(unittest.TestCase):
-
     def setUp(self):
         self.parser = Parser()
         self.obfuscator = Obfuscator()
@@ -32,6 +31,7 @@ class TestObfuscator(unittest.TestCase):
         self.assertEqual(control_id, self.obfuscated_doc.interchange.trailer.iea02.content)
         self.assertEqual(control_id, self.obfuscated_doc.interchange.groups[0].header.gs06.content)
         self.assertEqual(control_id, self.obfuscated_doc.interchange.groups[0].trailer.ge02.content)
+
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()

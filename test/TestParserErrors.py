@@ -2,8 +2,8 @@ import unittest
 from Segment import Segment
 from ParserErrors import InvalidFileTypeError
 
-class TestParserErrors(unittest.TestCase):
 
+class TestParserErrors(unittest.TestCase):
     def test_invalid_file_type_error(self):
         """Test a invalid file type error"""
         message = "Test Message"

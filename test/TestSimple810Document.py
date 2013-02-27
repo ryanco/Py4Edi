@@ -2,8 +2,8 @@ import unittest
 from Fixtures import FixtureReader, FixtureFiles
 from EdiValidator import Validator
 
-class TestSimple810DocumentInterchange(unittest.TestCase):
 
+class TestSimple810DocumentInterchange(unittest.TestCase):
     def setUp(self):
         self.document = FixtureFiles.documents.get(FixtureFiles.simple_810_file)
 
@@ -81,7 +81,6 @@ class TestSimple810DocumentInterchange(unittest.TestCase):
 
 
 class TestSimple810DocumentGroup(unittest.TestCase):
-
     def setUp(self):
         self.document = FixtureReader().read_edi_file(FixtureFiles.simple_810_file)
 
@@ -113,7 +112,7 @@ class TestSimple810DocumentGroup(unittest.TestCase):
         """Ensure the gs07 field is read correctly"""
         self.assertEqual("X", self.document.interchange.groups[0].header.gs07.content)
 
-    def test_810_group_header_gs07(self):
+    def test_810_group_header_gs08(self):
         """Ensure the gs08 field is read correctly"""
         self.assertEqual("004010", self.document.interchange.groups[0].header.gs08.content)
 
@@ -125,8 +124,8 @@ class TestSimple810DocumentGroup(unittest.TestCase):
         """Ensure the ge02 field is read correctly"""
         self.assertEqual("8234", self.document.interchange.groups[0].trailer.ge02.content)
 
-class TestSimple810DocumentTransactionSet(unittest.TestCase):
 
+class TestSimple810DocumentTransactionSet(unittest.TestCase):
     def setUp(self):
         self.document = FixtureReader().read_edi_file(FixtureFiles.simple_810_file)
 
@@ -150,6 +149,7 @@ class TestSimple810DocumentTransactionSet(unittest.TestCase):
         """Ensure the se02 field is read correctly"""
         self.assertEqual("000000001", self.document.interchange.groups[0].transaction_sets[0].trailer.se02.content)
 
+
 class TestSimple810Validation(unittest.TestCase):
     def setUp(self):
         self.document = FixtureReader().read_edi_file(FixtureFiles.simple_810_file)
@@ -158,5 +158,6 @@ class TestSimple810Validation(unittest.TestCase):
         out = Validator().is_valid_document(self.document)
         self.assertTrue(out)
 
-if __name__ == '__main__':
+
+if __name__ == '__main__':# pragma: no cover
     unittest.main()

@@ -4,7 +4,6 @@ from Fixtures import FixtureFiles
 
 
 class TestGSSegmentParsing(unittest.TestCase):
-
     def setUp(self):
         self.simpleEdiDocument = FixtureFiles.documents.get(FixtureFiles.simple_edi_file)
 
@@ -47,6 +46,7 @@ class TestGSSegmentParsing(unittest.TestCase):
     def test_version_indicator_code(self):
         """Test the GS08 segment"""
         self.assertEqual("004010", self.simpleEdiDocument.interchange.groups[0].header.gs08.content)
+
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()
