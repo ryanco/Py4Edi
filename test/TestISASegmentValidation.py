@@ -6,7 +6,7 @@ from ParserErrors import SegmentTerminatorNotFoundError
 from Fixtures import FixtureFiles
 
 
-class TestISASegmentValidator(unittest.TestCase):
+class TestISASegmentValidation(unittest.TestCase):
     def setUp(self):
         self.parser = Parser()
         self.validator = Validator()

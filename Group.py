@@ -1,6 +1,7 @@
 from Envelope import GroupEnvelope
 from Element import Element
 from Segment import Segment
+from EdiValidationErrors import SegmentCountError, IDMismatchError
 
 
 class Group(GroupEnvelope):
@@ -10,6 +11,41 @@ class Group(GroupEnvelope):
         GroupEnvelope.__init__(self)
         self.header = GroupHeader()
         self.trailer = GroupTrailer()
+
+    def validate(self, report):
+        """
+        Validate the group envelope
+        :param report: the validation report to append errors.
+        """
+        super(GroupEnvelope, self).validate(report)
+        self.__validate_control_ids(report)
+        self.__validate_group_count(report)
+
+    def __validate_control_ids(self, report):
+        """
+        Validate the control id match in the header and trailer
+        :param report: the validation report to append errors.
+        """
+        if self.header.gs06.content != self.trailer.ge02.content:
+            gs06_desc = self.header.gs06.description
+            gs06_name = self.header.gs06.name
+            ge02_desc = self.trailer.ge02.description
+            ge02_name = self.trailer.ge02.name
+            report.add_error(IDMismatchError(
+                msg="The " + gs06_desc + " in " + gs06_name + " does not match " + ge02_desc + " in " + ge02_name,
+                segment=self.header.id))
+
+    def __validate_group_count(self, report):
+        """
+        Validate the actual group count matches the specified count.
+        :param report: the validation report to append errors.
+        """
+        if int(self.trailer.ge01.content) != len(self.transaction_sets):
+            report.add_error(SegmentCountError(
+                msg="The " + self.trailer.ge01.description + " in " + self.trailer.ge01.name +
+                    " value of " + self.trailer.ge01.content + " does not match the parsed count of " +
+                    str(len(self.transaction_sets)),
+                segment=self.trailer.id))
 
 
 class GroupHeader(Segment):

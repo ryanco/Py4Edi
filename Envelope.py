@@ -8,23 +8,42 @@ class Envelope(object):
         self.body = []
 
     def format_as_edi(self, document_configuration):
+        """
+        Format the envelope as an EDI string.
+        :param document_configuration: configuration for formatting.
+        :return: document as a string of EDI.
+        """
         document = self.header.format_as_edi(document_configuration)
         document += self.__format_body_as_edi(document_configuration)
         document += self.trailer.format_as_edi(document_configuration)
         return document
 
     def __format_body_as_edi(self, document_configuration):
+        """
+        Format the body of the envelope as an EDI string.
+        This calls format_as_edi in all the children.
+        :param document_configuration: configuration for formatting.
+        :return: document as a string of EDI.
+        """
         document = ""
         for item in self.body:
             document += item.format_as_edi(document_configuration)
         return document
 
     def validate(self, report):
+        """
+        Performs validation of the envelope and its components.
+        :param report: the validation report to append errors.
+        """
         self.header.validate(report)
         self.__validate_body(report)
         self.trailer.validate(report)
 
     def __validate_body(self, report):
+        """
+        Validates each of the children of the envelope.
+        :param report: the validation report to append errors.
+        """
         for item in self.body:
             item.validate(report)
 

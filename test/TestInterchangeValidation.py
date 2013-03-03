@@ -2,7 +2,7 @@ import unittest
 from Fixtures import FixtureFiles
 
 
-class TestISASegmentValidator(unittest.TestCase):
+class TestISASegmentValidation(unittest.TestCase):
     def setUp(self):
         self.simple_edi_document = FixtureFiles.documents.get(FixtureFiles.simple_edi_file)
         self.control_id_mismatch_edi_document = \
@@ -24,7 +24,6 @@ class TestISASegmentValidator(unittest.TestCase):
         self.assertFalse(report.is_document_valid())
         self.assertEqual("The Interchange Control Number in ISA13 does not match Interchange Control Number in IEA02",
                          report.error_list[0].msg)
-
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()
