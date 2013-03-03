@@ -1,7 +1,7 @@
 from Envelope import InterchangeEnvelope
 from Segment import Segment
 from Element import Element
-from EdiValidationErrors import IDMismatchError
+from EdiValidationErrors import IDMismatchError, SegmentCountError
 
 
 class Interchange(InterchangeEnvelope):
@@ -13,6 +13,10 @@ class Interchange(InterchangeEnvelope):
         self.trailer = InterchangeTrailer()
 
     def validate(self, report):
+        self.__validate_header(report)
+        self.__validate_trailer(report)
+
+    def __validate_header(self, report):
         if self.header.isa13.content != self.trailer.iea02.content:
             isa13_desc = self.header.isa13.description
             isa13_name = self.header.isa13.name
@@ -21,6 +25,14 @@ class Interchange(InterchangeEnvelope):
             report.add_error(IDMismatchError(
                 msg="The " + isa13_desc + " in " + isa13_name + " does not match " + iea02_desc + " in " + iea02_name,
                 segment=self.header.id))
+
+    def __validate_trailer(self, report):
+        if int(self.trailer.iea01.content) != len(self.groups):
+            report.add_error(SegmentCountError(
+                msg="The " + self.trailer.iea01.description + " in " + self.trailer.iea01.name +
+                    " value of " + self.trailer.iea01.content + " does not match the parsed count of " +
+                    str(len(self.groups)),
+                segment=self.trailer.id))
 
 
 class InterchangeHeader(Segment):

@@ -1,6 +1,5 @@
 import unittest
 from Fixtures import FixtureReader, FixtureFiles
-from EdiValidator import Validator
 
 
 class TestSimple810DocumentInterchange(unittest.TestCase):
@@ -155,8 +154,7 @@ class TestSimple810Validation(unittest.TestCase):
         self.document = FixtureReader().read_edi_file(FixtureFiles.simple_810_file)
 
     def test_simple_810_validation(self):
-        out = Validator().is_valid_document(self.document)
-        self.assertTrue(out)
+        self.assertTrue(self.document.validate().is_document_valid())
 
 
 if __name__ == '__main__':# pragma: no cover

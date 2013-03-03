@@ -12,10 +12,7 @@ class Parser:
 
     def parse_document(self, document_text=""):
         """Parse the text document into an object
-
-        Keyword arguments:
-        document_text -- the text to parse into an EDI document.
-
+        :param document_text:  the text to parse into an EDI document.
         """
         self.documentText = document_text.lstrip()
         #attach the original document text to the document.
@@ -65,7 +62,9 @@ class Parser:
             self.__route_segment_to_parser(segment)
 
     def __route_segment_to_parser(self, segment):
-        """Take a generic segment and determine what segment to parse it as"""
+        """Take a generic segment and determine what segment to parse it as
+        :param segment:
+        """
         if segment.startswith(GroupHeader().id.name):
             self.__parse_group_header(segment)
         elif segment.startswith(GroupTrailer().id.name):
@@ -80,11 +79,15 @@ class Parser:
             pass
 
     def __parse_segment(self, segment, segmentFieldList):
-        """Generically parse segments"""
+        """Generically parse segments
+        :param segment:
+        :param segmentFieldList:
+        """
         for index, gs in enumerate(segmentFieldList):
             segment.fields[index].content = gs
 
     def __parse_group_header(self, segment):
+        """Parse the group header"""
         self.current_group = Group()
         header = GroupHeader()
         headerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
@@ -92,6 +95,7 @@ class Parser:
         self.current_group.header = header
 
     def __parse_group_trailer(self, segment):
+        """Parse the group trailer"""
         trailer = GroupTrailer()
         trailerFieldList = segment.split(self.ediDocument.document_configuration.element_separator)
         self.__parse_segment(trailer, trailerFieldList)

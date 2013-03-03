@@ -27,3 +27,16 @@ class IDMismatchError(Error):
     def __init__(self, segment, msg):
         self.segment = segment
         self.msg = msg
+
+
+class SegmentCountError(Error):
+    """Exception raised for errors in the input.
+
+        Attributes:
+            segment -- segment in which the error occurred
+            msg  -- explanation of the error
+        """
+
+    def __init__(self, segment, msg):
+        self.segment = segment
+        self.msg = msg

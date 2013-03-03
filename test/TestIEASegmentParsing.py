@@ -6,6 +6,8 @@ from Fixtures import FixtureFiles
 class TestIEASegmentParsing(unittest.TestCase):
     def setUp(self):
         self.simpleEdiDocument = FixtureFiles.documents.get(FixtureFiles.simple_edi_file)
+        self.interchange_group_count_error_document = \
+            FixtureFiles.documents.get(FixtureFiles.interchange_included_group_count_error_file)
 
     def test_segment_type(self):
         """Test the segment type name from the class default."""
@@ -22,6 +24,10 @@ class TestIEASegmentParsing(unittest.TestCase):
     def test_interchange_control_number(self):
         """Test the segment field from the instance"""
         self.assertEqual("000001234", self.simpleEdiDocument.interchange.trailer.iea02.content)
+
+    def test_validate_segment_size_is_not_valid(self):
+        """Test the validation of the segment size is not valid"""
+        self.assertFalse(self.interchange_group_count_error_document.validate().is_document_valid())
 
 
 if __name__ == '__main__':# pragma: no cover

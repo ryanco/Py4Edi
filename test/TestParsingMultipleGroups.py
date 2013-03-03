@@ -1,5 +1,4 @@
 import unittest
-from EdiValidator import Validator
 
 from Fixtures import FixtureReader, FixtureFiles
 
@@ -10,7 +9,7 @@ class TestParsingMultipleGroups(unittest.TestCase):
 
     def test_validity_of_parsed_document(self):
         """Ensure the document passes the validator"""
-        self.assertTrue(Validator().is_valid_document(self.multiple_groups_doc))
+        self.assertTrue(self.multiple_groups_doc.validate().is_document_valid())
 
     def test_parsing_multiple_groups(self):
         """Test parsing multiple groups by ensuring we can get their control id"""

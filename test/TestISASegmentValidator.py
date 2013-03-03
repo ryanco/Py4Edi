@@ -19,7 +19,8 @@ class TestISASegmentValidator(unittest.TestCase):
 
     def test_valid_file(self):
         """Test the positive case"""
-        self.assertTrue(self.validator.is_valid_document(self.simpleEdiDocument))
+        report = self.simpleEdiDocument.validate()
+        self.assertTrue(report.is_document_valid())
 
     def test_isa_01_validation_segment_too_short(self):
         """Test the isa01 segment is too short"""
