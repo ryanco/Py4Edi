@@ -110,7 +110,7 @@ class GroupTrailer(Segment):
 
         self.id = Element(name="GE",
                           description="Functional Group Trailer Identifier",
-                          required=True, minLength=2, maxLength=2, content="")
+                          required=True, minLength=2, maxLength=2, content="GE")
         self.fields.append(self.id)
 
         self.ge01 = Element(name="GE01",

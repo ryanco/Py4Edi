@@ -21,6 +21,7 @@ import TestSimple810Document
 import TestElement
 import TestSettings
 import TestGroupValidation
+import TestGSSegmentValidation
 
 loader = unittest.TestLoader()
 
@@ -45,6 +46,7 @@ suite.addTests(loader.loadTestsFromModule(TestSimple810Document))
 suite.addTests(loader.loadTestsFromModule(TestElement))
 suite.addTests(loader.loadTestsFromModule(TestSettings))
 suite.addTests(loader.loadTestsFromModule(TestGroupValidation))
+suite.addTests(loader.loadTestsFromModule(TestGSSegmentValidation))
 
 #load the fixture files into memory once before all the tests
 Fixtures.FixtureFiles().load_documents()

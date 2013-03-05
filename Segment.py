@@ -12,7 +12,8 @@ class Segment(object):
         self.sub_element_separator = CurrentSettings.sub_element_separator
 
     def validate(self, report):
-        pass
+        for field in self.fields:
+            field.validate(report)
 
     def format_as_edi(self, document_configuration):
         """Format the segment into an EDI string"""

@@ -1,5 +1,6 @@
 import unittest
 from Element import Element
+from Reports import ValidationReport
 
 
 class TestElement(unittest.TestCase):
@@ -21,21 +22,27 @@ class TestElement(unittest.TestCase):
     def test_is_valid_too_short(self):
         """Test an element that's content is too short"""
         element = Element(name="shorty", minLength=2, maxLength=4, content="1", required=True)
-        self.assertFalse(element.validate()[0])
+        report = ValidationReport()
+        element.validate(report)
+        self.assertFalse(report.is_document_valid())
         self.assertEqual("Field shorty is too short. Found 1 characters, expected 2 characters.",
-                         element.validate()[1])
+                         report.error_list[0].msg)
 
     def test_is_valid_too_long(self):
         """Test an element that's content is too long"""
         element = Element(name="longer", minLength=2, maxLength=4, content="12345", required=True)
-        self.assertFalse(element.validate()[0])
+        report = ValidationReport()
+        element.validate(report)
+        self.assertFalse(report.is_document_valid())
         self.assertEqual("Field longer is too long. Found 5 characters, expected 4 characters.",
-                         element.validate()[1])
+                         report.error_list[0].msg)
 
     def test_validate(self):
         """Test an element that's content is too long"""
         element = Element(name="just right", minLength=2, maxLength=4, content="123", required=True)
-        self.assertTrue(element.validate()[0])
+        report = ValidationReport()
+        element.validate(report)
+        self.assertTrue(report.is_document_valid())
 
 
 if __name__ == '__main__':# pragma: no cover
