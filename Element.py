@@ -13,13 +13,10 @@ class Element(object):
 
     def validate(self, report):
         """Validate the element"""
-        #TODO: Handle optional
-        if self.required:
+        if self.required or self.content!="":
             content_length = len(self.content)
             self.__is_field_too_short(content_length, report)
             self.__is_field_too_long(content_length, report)
-
-
 
     def __str__(self):
         if self.required:

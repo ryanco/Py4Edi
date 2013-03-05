@@ -44,6 +44,26 @@ class TestElement(unittest.TestCase):
         element.validate(report)
         self.assertTrue(report.is_document_valid())
 
+    def test_validate_optional_empty(self):
+        """Test an element that is optional and empty"""
+        element = Element(name="optional", minLength=2, maxLength=4, content="", required=False)
+        report = ValidationReport()
+        element.validate(report)
+        self.assertTrue(report.is_document_valid())
+
+    def test_validate_optional_valid(self):
+        """Test an element that is optional and empty"""
+        element = Element(name="optional", minLength=2, maxLength=4, content="123", required=False)
+        report = ValidationReport()
+        element.validate(report)
+        self.assertTrue(report.is_document_valid())
+
+    def test_validate_optional_invalid(self):
+        """Test an element that is optional and empty"""
+        element = Element(name="optional", minLength=2, maxLength=4, content="12345", required=False)
+        report = ValidationReport()
+        element.validate(report)
+        self.assertFalse(report.is_document_valid())
 
 if __name__ == '__main__':# pragma: no cover
     unittest.main()

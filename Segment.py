@@ -12,6 +12,10 @@ class Segment(object):
         self.sub_element_separator = CurrentSettings.sub_element_separator
 
     def validate(self, report):
+        """
+        Validate the segment by validating all elements.
+        :param report: the validation report to append errors.
+        """
         for field in self.fields:
             field.validate(report)
 

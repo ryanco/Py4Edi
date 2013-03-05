@@ -62,7 +62,7 @@ class MockHeaderSegment(Segment):
 
         self.test02 = Element(name="TEST02",
                               description="TEST 02 Segment",
-                              required=False, minLength=1, maxLength=4, content="123456")
+                              required=False, minLength=1, maxLength=6, content="123456")
         self.fields.append(self.test02)
 
 
@@ -85,7 +85,7 @@ class MockTrailerSegment(Segment):
 
         self.test02 = Element(name="TEST02",
                               description="TEST 02 Segment",
-                              required=False, minLength=1, maxLength=4, content="123456")
+                              required=False, minLength=1, maxLength=6, content="123456")
         self.fields.append(self.test02)
 
 
