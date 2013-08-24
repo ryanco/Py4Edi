@@ -1,5 +1,8 @@
 from EdiDocument import EdiDocument
+from Interchange import InterchangeHeader
 from Group import Group, GroupHeader, GroupTrailer
+from Segment import Segment
+from Element import Element
 from TransactionSet import TransactionSet, TransactionSetHeader, TransactionSetTrailer
 from ParserErrors import InvalidFileTypeError, SegmentTerminatorNotFoundError
 
@@ -8,7 +11,6 @@ class Parser:
     def __init__(self):
         """Create a new Parser"""
         self.ediDocument = EdiDocument()
-
 
     def parse_document(self, document_text=""):
         """Parse the text document into an object
@@ -54,7 +56,6 @@ class Parser:
                     raise SegmentTerminatorNotFoundError(
                         msg="The segment terminator is not present in the Interchange Header, can't parse file.")
 
-
     def __separate_and_route_segments(self):
         """Handles separating all the segments"""
         self.segment_list = self.documentText.split(self.ediDocument.document_configuration.segment_terminator)
@@ -65,26 +66,56 @@ class Parser:
         """Take a generic segment and determine what segment to parse it as
         :param segment:
         """
-        if segment.startswith(GroupHeader().id.name):
+        if segment.startswith(InterchangeHeader().id.name):
+            pass
+        elif segment.startswith(GroupHeader().id.name):
             self.__parse_group_header(segment)
         elif segment.startswith(GroupTrailer().id.name):
             self.__parse_group_trailer(segment)
-        elif segment.startswith(EdiDocument().interchange.trailer.id.name):
-            self.__parse_interchange_trailer(segment)
         elif segment.startswith(TransactionSetHeader().id.name):
             self.__parse_transaction_set_header(segment)
         elif segment.startswith(TransactionSetTrailer().id.name):
             self.__parse_transaction_set_trailer(segment)
+        elif segment.startswith(EdiDocument().interchange.trailer.id.name):
+            self.__parse_interchange_trailer(segment)
         else:
-            pass
+            self.__parse_unknown_body(segment)
 
     def __parse_segment(self, segment, segmentFieldList):
         """Generically parse segments
-        :param segment:
-        :param segmentFieldList:
+        :param segment: the segment to insert the values.
+        :param segmentFieldList: the list of segments to parse.
         """
-        for index, gs in enumerate(segmentFieldList):
-            segment.fields[index].content = gs
+        for index, value in enumerate(segmentFieldList):
+            segment.fields[index].content = value
+
+    def __create_generic_element(self, index, value):
+        """
+        Create a generic element based on the data found. Populate all the
+        fields so that validation will pass.
+        :param index: the position of the element for providing a name.
+        :param value: the content for the element being created.
+        :return: a generic element.
+        """
+        element = Element()
+        element.name = "GEN" + str(index)
+        element.content = value
+        element.description = "A generic element created by the parser"
+        element.required = False
+        length = len(value)
+        element.minLength = length
+        element.maxLength = length
+        return element
+
+    def __parse__unknown_segment(self, segment, segmentFieldList):
+        """Generically parse unknown segments by creating a
+        new element and appending it to the segment.
+        :param segment: the segment to append the values.
+        :param segmentFieldList: the list of segments to parse.
+        """
+        for index, value in enumerate(segmentFieldList):
+            element = self.__create_generic_element(index, value)
+            segment.fields.append(element)
 
     def __parse_group_header(self, segment):
         """Parse the group header"""
@@ -127,3 +158,15 @@ class Parser:
         self.__parse_segment(transactionTrailer, trailerFieldList)
         self.current_transaction.trailer = transactionTrailer
         self.current_group.transaction_sets.append(self.current_transaction)
+
+    def __parse_unknown_body(self, segment):
+        if segment:
+            generic_segment = Segment()
+            generic_field_list = segment.split(self.ediDocument.document_configuration.element_separator)
+            self.__parse__unknown_segment(generic_segment, generic_field_list)
+            try:
+                self.current_transaction.transaction_body.append(generic_segment)
+            except AttributeError:
+                pass
+
+

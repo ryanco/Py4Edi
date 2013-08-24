@@ -22,6 +22,7 @@ import TestElement
 import TestSettings
 import TestGroupValidation
 import TestGSSegmentValidation
+import TestTransactionSetValidation
 
 loader = unittest.TestLoader()
 
@@ -47,6 +48,7 @@ suite.addTests(loader.loadTestsFromModule(TestElement))
 suite.addTests(loader.loadTestsFromModule(TestSettings))
 suite.addTests(loader.loadTestsFromModule(TestGroupValidation))
 suite.addTests(loader.loadTestsFromModule(TestGSSegmentValidation))
+suite.addTests(loader.loadTestsFromModule(TestTransactionSetValidation))
 
 #load the fixture files into memory once before all the tests
 Fixtures.FixtureFiles().load_documents()
@@ -54,4 +56,3 @@ Fixtures.FixtureFiles().load_documents()
 runner = unittest.TextTestRunner(verbosity=3)
 result = runner.run(suite)
 
-print "Done"

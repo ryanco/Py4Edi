@@ -1,6 +1,7 @@
 from Envelope import TransactionSetEnvelope
 from Element import Element
 from Segment import Segment
+from EdiValidationErrors import IDMismatchError, SegmentCountError
 
 
 class TransactionSet(TransactionSetEnvelope):
@@ -10,6 +11,42 @@ class TransactionSet(TransactionSetEnvelope):
         TransactionSetEnvelope.__init__(self)
         self.header = TransactionSetHeader()
         self.trailer = TransactionSetTrailer()
+
+    def validate(self, report):
+        """
+        Validate the envelope
+        :param report: the validation report to append errors.
+        """
+        super(TransactionSetEnvelope, self).validate(report)
+        self.__validate_control_ids(report)
+        self.__validate_group_count(report)
+
+    def __validate_control_ids(self, report):
+        """
+        Validate the control id match in the header and trailer
+        :param report: the validation report to append errors.
+        """
+        if self.header.st02.content != self.trailer.se02.content:
+            st02_desc = self.header.st02.description
+            st02_name = self.header.st02.name
+            se02_desc = self.trailer.se02.description
+            se02_name = self.trailer.se02.name
+            report.add_error(IDMismatchError(
+                msg="The " + st02_desc + " in " + st02_name + " does not match " + se02_desc + " in " + se02_name,
+                segment=self.header.id))
+
+    def __validate_group_count(self, report):
+        """
+        Validate the actual group count matches the specified count.
+        :param report: the validation report to append errors.
+        """
+        if int(self.trailer.se01.content) != self.number_of_segments():
+            report.add_error(SegmentCountError(
+                msg="The " + self.trailer.se01.description + " in " + self.trailer.se01.name +
+                    " value of " + self.trailer.se01.content + " does not match the parsed count of " +
+                    str(len(self.transaction_body)),
+                segment=self.trailer.id))
+
 
 
 class TransactionSetHeader(Segment):

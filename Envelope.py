@@ -47,6 +47,9 @@ class Envelope(object):
         for item in self.body:
             item.validate(report)
 
+    def number_of_segments(self):
+        return len(self.body)
+
 
 class InterchangeEnvelope(Envelope):
     def __init__(self):
@@ -64,3 +67,7 @@ class TransactionSetEnvelope(Envelope):
     def __init__(self):
         Envelope.__init__(self)
         self.transaction_body = self.body
+
+    def number_of_segments(self):
+        header_trailer_count = 2
+        return len(self.transaction_body) + header_trailer_count

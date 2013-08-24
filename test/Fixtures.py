@@ -29,6 +29,7 @@ class FixtureFiles(Fixtures):
     simple_edi_file = "fixtures/General/Simple.edi"
     interchange_control_id_mismatch_error_file = 'fixtures/validation_errors/InterchangeControlIDMismatch.edi'
     interchange_included_group_count_error_file = 'fixtures/validation_errors/InterchangeIncludedGroupsCountError.edi'
+    interchange_trailer_missing_error_file = 'fixtures/validation_errors/MissingInterchangeTrailer.edi'
     groups_included_transaction_count_error_file = 'fixtures/validation_errors/GroupIncludedTransactionCountError.edi'
     multiple_groups_file = 'fixtures/General/MultipleGroups.edi'
     single_group_multiple_transactions_file = 'fixtures/General/MultipleTransactions.edi'
@@ -38,6 +39,7 @@ class FixtureFiles(Fixtures):
         FixtureReader().read_edi_file(FixtureFiles.simple_edi_file)
         FixtureReader().read_edi_file(FixtureFiles.interchange_control_id_mismatch_error_file)
         FixtureReader().read_edi_file(FixtureFiles.interchange_included_group_count_error_file)
+        #FixtureReader().read_edi_file(FixtureFiles.interchange_trailer_missing_error_file)
         FixtureReader().read_edi_file(FixtureFiles.groups_included_transaction_count_error_file)
         FixtureReader().read_edi_file(FixtureFiles.multiple_groups_file)
         FixtureReader().read_edi_file(FixtureFiles.single_group_multiple_transactions_file)
